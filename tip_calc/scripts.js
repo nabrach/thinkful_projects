@@ -19,7 +19,7 @@ window.onload = function(){
 	var tipAmount = calculate(total, tip);
 	// console.log("Tip: $" + tipAmount);
 	
-	if (tip < total * 0.15) {
+	if (tipAmount < total * 0.15) {
 	alert("You really should tip at least 15%\n" + "15% tip of $" + total.toFixed(2) + " is $" + (total.toFixed(2) * 0.15) + "\nMust have been bad service.");
 	}
 
