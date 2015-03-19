@@ -38,31 +38,29 @@ var server = http.createServer(function(req, res){
 		        res.end('Item deleted successfully');
 		    }
 		    break;
-		// case 'PUT':
-		// 	  // Parse the URL
-		// 	  var url = parseUrl(req);
-		// 	  // Regex out the /[digit]/[correction_text]
-		// 	  var params = url.pathname.match(/^\/([\d]+)\/([^\/]+)$/);
-
-		// 	  // If neither are present in the final match, return error.
-		// 	  if(!params[1] || !params[2]){
-		// 	    res.statusCode = 400;
-		// 	    res.end("PUT request must be /[index]/[correction]");
-		// 	  }else{
-		// 	    // Index and correction, with old value for confirmation.
-		// 	    var index = parseInt(params[1]),
-		// 	        correction = params[2],
-		// 	        old = items[index];
-
-		// 	    // Do the switch
-		// 	    items[index] = correction;
-
-		// 	    // Outie!
-		// 	    res.end("Changed '" + old + " to " + correction);
-		// 	  }
-		// 	break;
-	}
+		case 'PUT':
+				var pathname = url.parse(req.url).pathname;
+				var i = parseInt(pathname.slice(1), 10);
+				var item = '';
+				req.setEncoding('utf8');
+				req.on('data', function(chunk) {
+					item += chunk;
+				});
+				req.on('end', function() {
+					items.splice(i, 1, item);
+					res.end('Item replaced\n');
+				});
+				break;
+			}
 });
+
+// items = [1,2,3];
+
+// for loop on GET
+
+// push on POST
+
+// PUT item[i] = i
 
 server.listen(9000, function(){
 	console.log('listening on 9000');
